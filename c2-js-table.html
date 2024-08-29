@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
 
   <section id="challenge">
@@ -39,8 +41,13 @@
         padding: 8px 12px;
       }
 
-      .btn:hover { background-color: #dadada; }
-      .btn:active { background-color: #cdcdcd; }
+      .btn:hover {
+        background-color: #dadada;
+      }
+
+      .btn:active {
+        background-color: #cdcdcd;
+      }
 
       .container {
         margin: 50px auto;
@@ -97,9 +104,110 @@
     <script>
       // Your code here ********************************************************
 
+      const description = document.getElementById('description');
+      const amount = document.getElementById('amount');
+      const price = document.getElementById('price');
+      const tbody = document.querySelector('tbody');
+      const btns = document.querySelectorAll('.btn');
+      const actionBtns = document.querySelectorAll('[data-action]');
+      const table = document.querySelector('table');
+
+      const addRow = () => {
+        const tr = document.createElement('tr');
+        const tdDescription = document.createElement('td');
+        const tdAmount = document.createElement('td');
+        const tdPrice = document.createElement('td');
+        const tdTotal = document.createElement('td');
+
+        tdDescription.textContent = description.value;
+        tdAmount.textContent = amount.value;
+        tdPrice.textContent = price.value;
+        tdTotal.textContent = amount.value * price.value;
+
+        tr.appendChild(tdDescription);
+        tr.appendChild(tdAmount);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdTotal);
+
+        tbody.appendChild(tr);
+      }
+
+      const clearFields = () => {
+        description.value = '';
+        amount.value = '';
+        price.value = '';
+      }
+
+      const removeRow = (e) => {
+        const tr = e.target.parentNode.parentNode;
+        tbody.removeChild(tr);
+      }
+
+      const editRow = (e) => {
+        const tr = e.target.parentNode.parentNode;
+        const tds = tr.querySelectorAll('td');
+        const description = tds[0].textContent;
+        const amount = tds[1].textContent;
+        const price = tds[2].textContent;
+
+        document.getElementById('description').value = description;
+        document.getElementById('amount').value = amount;
+        document.getElementById('price').value = price;
+
+        tbody.removeChild(tr);
+      }
+
+      const addTotal = () => {
+        const trs = tbody.querySelectorAll('tr');
+        const total = trs.reduce((acc, tr) => {
+          const tds = tr.querySelectorAll('td');
+          const amount = tds[1].textContent;
+          const price = tds[2].textContent;
+          return acc + (amount * price);
+        }, 0);
+
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.setAttribute('colspan', 3);
+        td.textContent = 'Total';
+        const tdTotal = document.createElement('td');
+        tdTotal.textContent = total;
+
+        tr.appendChild(td);
+        tr.appendChild(tdTotal);
+
+        tbody.appendChild(tr);
+      }
+
+      const validateFields = () => {
+        const fields = [description, amount, price];
+        return fields.every(field => field.value);
+      }
+
+      const handleAction = (e) => {
+        const action = e.target.dataset.action;
+        if (action === 'action-a') {
+          if (validateFields()) {
+            addRow();
+            clearFields();
+            addTotal();
+          } else {
+            alert('Please fill all fields');
+          }
+        } else if (action === 'action-r') {
+          removeRow(e);
+        } else if (action === 'action-e') {
+          editRow(e);
+        }
+      }
+
+      actionBtns.forEach(btn => btn.addEventListener('click', handleAction));
+
+
     </script>
 
   </section>
 
 </body>
+
 </html>

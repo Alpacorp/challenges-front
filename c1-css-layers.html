@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
 
   <section id="challenge">
@@ -39,10 +41,21 @@
         left: 40%;
       }
 
-      .purple { background-color: rebeccapurple; }
-      .red { background-color: red; }
-      .green { background-color: green; }
-      .yellow { background-color: yellow; }
+      .purple {
+        background-color: rebeccapurple;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      .green {
+        background-color: green;
+      }
+
+      .yellow {
+        background-color: yellow;
+      }
 
       .square {
         height: 100px;
@@ -71,11 +84,15 @@
       .triangle.red {
         background-color: transparent;
         border-bottom-color: red;
+        transform: translate(-100px, -90px);
+        z-index: 1;
       }
 
       .triangle.green {
         background-color: transparent;
         border-bottom-color: green;
+        transform: translate(10px, 160px);
+        z-index: 1;
       }
 
       .triangle.yellow {
@@ -86,6 +103,8 @@
       .triangle.purple {
         background-color: transparent;
         border-bottom-color: rebeccapurple;
+        transform: translate(-10px, 40px);
+        z-index: 1;
       }
 
       .square.red {
@@ -99,13 +118,8 @@
       }
 
       .rectangle.yellow {
-        transform: translate(-90px, 90px);
-        z-index: 1;
-      }
-
-      .triangle.purple {
-        transform: translate(-10px, 40px);
-        z-index: 1;
+        transform: translate(900px, 900px);
+        z-index: -1;
       }
 
       .square.purple {
@@ -120,11 +134,6 @@
 
       .rectangle.green {
         transform: translate(200px, 100px);
-        z-index: 1;
-      }
-
-      .triangle.red {
-        transform: translate(-100px, -90px);
         z-index: 1;
       }
 
@@ -143,16 +152,25 @@
         z-index: 1;
       }
 
-      .triangle.green {
-        transform: translate(10px, 160px);
-        z-index: 1;
+      /* Your code here *******************************************************/
+      /* Instructions: in this section you will find multiple shapes with different
+      colors stacked on top of each other. Using CSS, try to accomplish the
+      following:
+        - Bring the red square all the way to the front
+        - Push the green triangle all the way to the back
+        - Move the green rectangle on top of the red rectangle */
+
+      .square.red {
+        z-index: 4;
       }
 
+      .group:nth-child(4) {
+        z-index: -1;
+      }
 
-
-      /* Your code here *******************************************************/
-
-
+      .group:nth-child(2) {
+        z-index: 3;
+      }
     </style>
 
 
@@ -182,4 +200,5 @@
   </section>
 
 </body>
+
 </html>
